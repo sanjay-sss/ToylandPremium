@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToyLand-Premium Toy Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f8f8;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(0deg, transparent 24%, rgba(139, 115, 85, 0.02) 25%, rgba(139, 115, 85, 0.02) 26%, transparent 27%, transparent 74%, rgba(139, 115, 85, 0.02) 75%, rgba(139, 115, 85, 0.02) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(139, 115, 85, 0.02) 25%, rgba(139, 115, 85, 0.02) 26%, transparent 27%, transparent 74%, rgba(139, 115, 85, 0.02) 75%, rgba(139, 115, 85, 0.02) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.1;
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-bottom: 1px solid #e8ddd3;
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .search-section {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .header-search {
+            width: 100%;
+            padding: 12px 50px 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .header-search:focus {
+            border-color: #8b7355;
+            box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            padding: 10px 12px;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.2s ease;
+            min-width: 41px;
+        }
+        
+        .search-btn:hover {
+            background: #34495e;
+        }
+        
+        .cart-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .cart-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .categories-nav {
+            background: #ffffff;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(233, 236, 239, 0.5);
+            padding: 1rem 0;
+            position: sticky;
+            top: 70px;
+            z-index: 90;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            padding: 0 20px;
+        }
+        
+        .category-tab {
+            background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            color: #555;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+            font-size: 14px;
+            margin-right: 8px;
+            position: relative;
+        }
+        
+        .category-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        
+        .category-tab:hover::after {
+            width: 80%;
+        }
+        
+        .category-tab.active::after {
+            width: 100%;
+        }
+        
+        .category-tab:hover {
+            color: #8b7355;
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(135deg, #fffdf9 0%, #f9f5f0 100%);
+            color: #2c3e50;
+            border-color: #8b7355;
+            border-bottom: 3px solid #8b7355;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        .banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .banner::after {
+            display: none;
+        }
+        
+        .banner h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: none;
+        }
+        
+        .banner p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .default-collection {
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f8f8;
+            border: 1px dashed #ddd;
+            border-radius: 12px;
+            color: #6c757d;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .collection-items-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .collection-item-preview {
+            background: #f8f8f8;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .collection-item-preview:hover {
+            box-shadow: 0 4px 15px rgba(139, 115, 85, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .collection-item-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .collection-item-info {
+            flex: 1;
+        }
+        
+        .collection-item-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.25rem;
+            font-size: 14px;
+        }
+        
+        .collection-item-price {
+            background: none;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: #8b7355;
+            background-clip: text;
+            font-weight: 600;
+            font-size: 16px;
+            color: #8b7355;
+        }
+        
+        .collection-summary {
+            background: #f8f8f8;
+            color: #333;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            align-items: stretch;
+            /* Add this - makes all cards same height */
+        }
+        
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            /* Add this */
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .product-card:hover::before {
+            opacity: 1;
+        }
+        
+        .product-card:hover {
+            border-color: #2c3e50;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+        
+        .product-card>* {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.1) rotate(2deg);
+        }
+        
+        .product-category {
+            display: inline-block;
+            background: #f8f8f8;
+            color: #777;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .product-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            line-height: 1.4;
+            height: 44px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #8b7355;
+            margin-bottom: 0.75rem;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 14px;
+        }
+        
+        .rating-badge {
+            background: #28a745;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 12px;
+        }
+        
+        .rating-count {
+            color: #6c757d;
+        }
+        
+        .product-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            font-size: 14px;
+            color: #6c757d;
+            min-height: 72px;
+            flex-grow: 1;
+        }
+        
+        .product-card .btn {
+            margin-top: auto;
+            /* This keeps button at bottom */
+            width: 100%;
+            /* Makes button full width */
+        }
+        
+        .product-features li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .product-features li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #8b7355;
+            font-weight: bold;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .modal-content {
+            background: #ffffff;
+            backdrop-filter: blur(20px);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .collection-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: #f8f8f8;
+            border-radius: 12px;
+            border-left: 4px solid #8b7355;
+        }
+        
+        .collection-total {
+            background: #f8f8f8;
+            color: #333;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            margin: 1rem 0;
+        }
+        
+        .empty-collection {
+            text-align: center;
+            color: #6c757d;
+            padding: 3rem 2rem;
+            font-style: italic;
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            width: 100%;
+            margin-top: 1rem;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+        
+        .whatsapp-btn:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.7);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+        }
+        
+        .product-detail-modal .modal-content {
+            max-width: 700px;
+        }
+        
+        .product-detail-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .product-detail-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        .product-detail-info {
+            flex: 1;
+        }
+        
+        .product-detail-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.75rem;
+        }
+        
+        .product-detail-price {
+            font-size: 28px;
+            font-weight: 600;
+            background: none;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: #8b7355;
+            background-clip: text;
+            color: #8b7355;
+            margin-bottom: 1rem;
+        }
+        
+        .product-detail-category {
+            display: inline-block;
+            background: #f8f8f8;
+            color: #8b7355;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .product-description {
+            color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 16px;
+        }
+        
+        .product-specs {
+            background: #f8f8f8;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .product-specs h3 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-size: 18px;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .spec-value {
+            color: #6c757d;
+            text-align: right;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .product-actions .btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 10px;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .search-section {
+                max-width: 100%;
+            }
+            .header-search {
+                font-size: 14px;
+                padding: 10px 40px 10px 14px;
+            }
+            .cart-count {
+                padding: 4px 10px;
+                font-size: 12px;
+            }
+            .btn {
+                padding: 10px 16px;
+                font-size: 14px;
+                min-width: 100px;
+            }
+            .categories-nav {
+                top: 0;
+            }
+            .category-tabs {
+                padding: 0 10px;
+            }
+            .category-tab {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+            .banner {
+                padding: 2rem 1rem;
+                border-radius: 12px;
+            }
+            .banner h2 {
+                font-size: 1.4rem;
+            }
+            .banner p {
+                font-size: 1rem;
+            }
+            .section {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+            }
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .product-card {
+                padding: 1rem;
+            }
+            .product-image {
+                height: 150px;
+            }
+            .product-name {
+                font-size: 14px;
+                height: 40px;
+            }
+            .product-price {
+                font-size: 16px;
+            }
+            .product-rating {
+                font-size: 12px;
+            }
+            .product-features {
+                font-size: 12px;
+            }
+            .collection-items-preview {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .collection-item-preview {
+                padding: 0.76rem;
+            }
+            .collection-item-img {
+                width: 40px;
+                height: 40px;
+            }
+            .collection-item-name {
+                font-size: 12px;
+            }
+            .collection-item-price {
+                font-size: 14px;
+            }
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+            .product-detail-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .product-detail-image {
+                width: 100%;
+                height: 200px;
+            }
+            .product-detail-title {
+                font-size: 20px;
+            }
+            .product-detail-price {
+                font-size: 24px;
+            }
+            .product-description {
+                font-size: 14px;
+            }
+            .product-specs {
+                padding: 1rem;
+            }
+            .product-specs h3 {
+                font-size: 16px;
+            }
+            .spec-item {
+                font-size: 14px;
+            }
+            .product-actions {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .whatsapp-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+            .btn-secondary {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">TOYLAND</a>
+                <div class="search-section">
+                    <input type="text" class="header-search" id="header-search" placeholder="Search for toys, games and more...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="cart-info">
+                    <span class="cart-count" id="cart-count">Cart (0)</span>
+                    <button class="btn" id="view-collection">View Cart</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="categories-nav">
+        <div class="container">
+            <div class="category-tabs" id="category-tabs">
+                <button class="category-tab active" data-category="all">All</button>
+                <button class="category-tab" data-category="Action Figures">Action Figures</button>
+                <button class="category-tab" data-category="Dolls">Dolls</button>
+                <button class="category-tab" data-category="Educational">Educational</button>
+                <button class="category-tab" data-category="Building Blocks">Building Blocks</button>
+                <button class="category-tab" data-category="Vehicles">Vehicles</button>
+                <button class="category-tab" data-category="Board Games">Board Games</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="banner">
+                <h2>🎉 Welcome to ToyLand</h2>
+                <p>Discover premium toys for endless fun and learning.</p>
+            </div>
+
+            <div class="section" id="collections-section">
+                <h2 class="section-title">Your Cart</h2>
+                <div class="default-collection" id="default-collection">
+                    <div>
+                        <p><strong>Your cart is empty</strong></p>
+                        <p>Start shopping to see items here!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="products-grid" id="products-grid"></div>
+            </div>
+        </div>
+    </main>
+
+    <div id="collection-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Shopping Cart</h2>
+            <div id="collection-items"></div>
+            <div class="collection-total" id="collection-total" style="display: none;"></div>
+            <button class="btn whatsapp-btn" id="whatsapp-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
+            </svg>
+            Send to WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <div id="product-detail-modal" class="modal product-detail-modal">
+        <div class="modal-content">
+            <span class="close" id="product-detail-close">&times;</span>
+            <div id="product-detail-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // List of actual image filenames from your folder
+        const imageFilenames = [
+            "WhatsApp Image 2025-10-04 at 17.51.31 (1).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.31.jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.32 (1).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.32 (2).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.32.jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.33 (1).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.33.jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.34 (1).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.34.jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.35 (1).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.35 (2).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.35.jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.36 (1).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.36 (2).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.36.jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.37 (1).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.37 (2).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.37.jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.38 (1).jpeg",
+            "WhatsApp Image 2025-10-04 at 17.51.38.jpeg"
+        ];
+
+        // Sample toys data with detailed specs for first 5 items, using actual image filenames
+        const toys = [{
+            id: 1,
+            name: "Super Hero Action Figure",
+            price: 299,
+            category: "Action Figures",
+            image: imageFilenames[0],
+            description: "Transform into your favorite superhero with this premium action figure featuring 20+ points of articulation and authentic costume details.",
+            specs: {
+                "Age Range": "4-12 years",
+                "Material": "High-quality ABS plastic",
+                "Height": "6 inches",
+                "Features": "Moveable joints, Cape included",
+                "Brand": "HeroToys",
+                "Safety": "Non-toxic materials"
+            }
+        }, {
+            id: 2,
+            name: "Princess Doll House",
+            price: 1999,
+            category: "Dolls",
+            image: imageFilenames[1],
+            description: "A magical 3-story dollhouse complete with furniture, dolls, and accessories. Perfect for imaginative play and storytelling.",
+            specs: {
+                "Age Range": "3-10 years",
+                "Dimensions": "24 x 18 x 20 inches",
+                "Rooms": "6 fully furnished rooms",
+                "Includes": "2 dolls, 25+ furniture pieces",
+                "Material": "Premium wood and plastic",
+                "Assembly": "Adult assembly required"
+            }
+        }, {
+            id: 3,
+            name: "Learning Alphabet Blocks",
+            price: 449,
+            category: "Educational",
+            image: imageFilenames[2],
+            description: "Colorful wooden blocks featuring letters, numbers, and pictures. Helps develop fine motor skills and early literacy.",
+            specs: {
+                "Age Range": "1-5 years",
+                "Pieces": "26 alphabet blocks + 10 number blocks",
+                "Material": "Sustainable wood with safe paint",
+                "Size": "1.5 x 1.5 inches per block",
+                "Learning Focus": "Letters, Numbers, Colors",
+                "Certification": "CE marked, ASTM certified"
+            }
+        }, {
+            id: 4,
+            name: "LEGO City Building Set",
+            price: 2499,
+            category: "Building Blocks",
+            image: imageFilenames[3],
+            description: "Build your own city with this comprehensive LEGO set featuring buildings, vehicles, and minifigures for endless creative possibilities.",
+            specs: {
+                "Age Range": "6-14 years",
+                "Pieces": "850+ pieces",
+                "Minifigures": "8 included",
+                "Vehicles": "Police car, Fire truck, Ambulance",
+                "Buildings": "Police station, Fire station, Hospital",
+                "Compatibility": "Compatible with all LEGO sets"
+            }
+        }, {
+            id: 5,
+            name: "Remote Control Car",
+            price: 899,
+            category: "Vehicles",
+            image: imageFilenames[4],
+            description: "High-speed RC car with advanced controls and durable design. Perfect for indoor and outdoor racing adventures.",
+            specs: {
+                "Age Range": "8+ years",
+                "Speed": "Up to 25 km/h",
+                "Range": "100 meters",
+                "Battery Life": "45 minutes continuous play",
+                "Features": "LED lights, Sound effects",
+                "Charging Time": "2 hours"
+            }
+        }, {
+            id: 6,
+            name: "Chess Board Set",
+            price: 699,
+            category: "Board Games",
+            image: imageFilenames[5]
+        }, {
+            id: 7,
+            name: "Barbie Fashion Doll",
+            price: 799,
+            category: "Dolls",
+            image: imageFilenames[6]
+        }, {
+            id: 8,
+            name: "Transformer Robot",
+            price: 1299,
+            category: "Action Figures",
+            image: imageFilenames[7]
+        }, {
+            id: 9,
+            name: "Math Learning Game",
+            price: 349,
+            category: "Educational",
+            image: imageFilenames[8]
+        }, {
+            id: 10,
+            name: "Fire Truck Toy",
+            price: 559,
+            category: "Vehicles",
+            image: imageFilenames[9]
+        }, {
+            id: 11,
+            name: "Monopoly Board Game",
+            price: 999,
+            category: "Board Games",
+            image: imageFilenames[10]
+        }, {
+            id: 12,
+            name: "LEGO Friends Set",
+            price: 1899,
+            category: "Building Blocks",
+            image: imageFilenames[11]
+        }, {
+            id: 13,
+            name: "Spider-Man Figure",
+            price: 399,
+            category: "Action Figures",
+            image: imageFilenames[12]
+        }, {
+            id: 14,
+            name: "Baby Doll with Accessories",
+            price: 649,
+            category: "Dolls",
+            image: imageFilenames[13]
+        }, {
+            id: 15,
+            name: "Science Experiment Kit",
+            price: 1199,
+            category: "Educational",
+            image: imageFilenames[14]
+        }, {
+            id: 16,
+            name: "Police Car Toy",
+            price: 449,
+            category: "Vehicles",
+            image: imageFilenames[15]
+        }, {
+            id: 17,
+            name: "Scrabble Word Game",
+            price: 799,
+            category: "Board Games",
+            image: imageFilenames[16]
+        }, {
+            id: 18,
+            name: "LEGO Technic Set",
+            price: 3499,
+            category: "Building Blocks",
+            image: imageFilenames[17]
+        }, {
+            id: 19,
+            name: "Batman Action Figure",
+            price: 459,
+            category: "Action Figures",
+            image: imageFilenames[18]
+        }, {
+            id: 20,
+            name: "Fashion Designer Doll",
+            price: 899,
+            category: "Dolls",
+            image: imageFilenames[19]
+        }, {
+            id: 21,
+            name: "Counting Bears Set",
+            price: 299,
+            category: "Educational",
+            image: imageFilenames[0]
+        }, {
+            id: 22,
+            name: "Racing Car Collection",
+            price: 1199,
+            category: "Vehicles",
+            image: imageFilenames[1]
+        }, {
+            id: 23,
+            name: "UNO Card Game",
+            price: 199,
+            category: "Board Games",
+            image: imageFilenames[2]
+        }, {
+            id: 24,
+            name: "LEGO Castle Set",
+            price: 2899,
+            category: "Building Blocks",
+            image: imageFilenames[3]
+        }, {
+            id: 25,
+            name: "Wonder Woman Figure",
+            price: 399,
+            category: "Action Figures",
+            image: imageFilenames[4]
+        }, {
+            id: 26,
+            name: "Medical Kit Doll Set",
+            price: 749,
+            category: "Dolls",
+            image: imageFilenames[5]
+        }, {
+            id: 27,
+            name: "Geography Puzzle",
+            price: 399,
+            category: "Educational",
+            image: imageFilenames[6]
+        }, {
+            id: 28,
+            name: "Ambulance Toy",
+            price: 389,
+            category: "Vehicles",
+            image: imageFilenames[7]
+        }, {
+            id: 29,
+            name: "Risk Strategy Game",
+            price: 1299,
+            category: "Board Games",
+            image: imageFilenames[8]
+        }, {
+            id: 30,
+            name: "LEGO Star Wars Set",
+            price: 4999,
+            category: "Building Blocks",
+            image: imageFilenames[9]
+        }];
+
+        // Generate remaining toys programmatically to reach 300, cycling through available images
+        for (let i = 31; i <= 300; i++) {
+            const categories = ["Action Figures", "Dolls", "Educational", "Building Blocks", "Vehicles", "Board Games"];
+            const names = [
+                "Super Hero", "Princess", "Learning", "Building", "Racing", "Strategy",
+                "Adventure", "Creative", "Musical", "Puzzle", "Classic", "Modern"
+            ];
+            const types = [
+                "Figure", "Doll", "Game", "Set", "Toy", "Kit", "Collection", "Playset"
+            ];
+
+            const category = categories[Math.floor(Math.random() * categories.length)];
+            const name = names[Math.floor(Math.random() * names.length)];
+            const type = types[Math.floor(Math.random() * types.length)];
+            const price = Math.floor(Math.random() * 3000) + 199;
+            const imageIndex = (i - 1) % imageFilenames.length; // Cycle through the 20 images
+
+            toys.push({
+                id: i,
+                name: `${name} ${type} #${i}`,
+                price: price,
+                category: category,
+                image: imageFilenames[imageIndex]
+            });
+        }
+
+        class ToyStore {
+            constructor() {
+                this.toys = toys;
+                this.collection = JSON.parse(localStorage.getItem('toyCollection')) || [];
+                this.filteredToys = [...this.toys];
+                this.init();
+            }
+
+            init() {
+                this.renderProducts();
+                this.updateCollectionCount();
+                this.updateDefaultCollection();
+                this.setupEventListeners();
+            }
+
+            renderProducts(toysToRender = this.filteredToys) {
+                    const grid = document.getElementById('products-grid');
+                    grid.innerHTML = toysToRender.map((toy, index) => {
+                                // Generate random rating between 3.5 and 4.8
+                                const rating = (Math.random() * 1.3 + 3.5).toFixed(1);
+                                const ratingCount = Math.floor(Math.random() * 1000) + 100;
+
+                                // Generate random features
+                                const allFeatures = [
+                                    'Safe & Non-toxic materials',
+                                    'Age appropriate design',
+                                    'Durable construction',
+                                    'Educational value',
+                                    'Easy to clean',
+                                    'Recommended by parents',
+                                    'Premium quality',
+                                    'Warranty included',
+                                    'Fast delivery',
+                                    'Best seller'
+                                ];
+                                const features = allFeatures.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+                                return `
+                    <div class="product-card" style="animation-delay: ${index * 0.05}s" onclick="toyStore.showProductDetail(${toy.id})">
+                        <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-image">
+                        <div class="product-category">${toy.category}</div>
+                        <h3 class="product-name">${toy.name}</h3>
+                        <div class="product-rating">
+                            <span class="rating-badge">${rating} ⭐</span>
+                            <span class="rating-count">(${ratingCount.toLocaleString()})</span>
+                        </div>
+                        <p class="product-price">₹${toy.price.toLocaleString()}</p>
+                        <ul class="product-features">
+                            ${features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                        <button class="btn" onclick="event.stopPropagation(); toyStore.addToCollection(${toy.id})">
+                            Add to Cart
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+            addToCollection(toyId) {
+                const toy = this.toys.find(t => t.id === toyId);
+                if (toy && !this.collection.find(item => item.id === toyId)) {
+                    this.collection.push(toy);
+                    this.saveCollection();
+                    this.updateCollectionCount();
+                    this.updateDefaultCollection();
+                    
+                    // Visual feedback
+                    const button = event.target;
+                    button.textContent = '✓ Added';
+                    button.style.background = '#28a745';
+                    setTimeout(() => {
+                        button.textContent = 'Add to Cart';
+                        button.style.background = '';
+                    }, 1000);
+                }
+            }
+
+            removeFromCollection(toyId) {
+                this.collection = this.collection.filter(item => item.id !== toyId);
+                this.saveCollection();
+                this.updateCollectionCount();
+                this.updateDefaultCollection();
+                this.showCollection();
+            }
+
+            saveCollection() {
+                localStorage.setItem('toyCollection', JSON.stringify(this.collection));
+            }
+
+            updateCollectionCount() {
+                document.getElementById('cart-count').textContent = `Cart (${this.collection.length})`;
+            }
+
+            updateDefaultCollection() {
+                const defaultCollection = document.getElementById('default-collection');
+                
+                if (this.collection.length === 0) {
+                    defaultCollection.innerHTML = `
+                        <div>
+                            <p><strong>Your cart is empty</strong></p>
+                            <p>Start shopping to see items here!</p>
+                        </div>
+                    `;
+                    defaultCollection.className = 'default-collection';
+                } else {
+                    const total = this.collection.reduce((sum, item) => sum + item.price, 0);
+                    defaultCollection.innerHTML = `
+                        <div class="collection-items-preview">
+                            ${this.collection.slice(0, 4).map(item => `
+                                <div class="collection-item-preview">
+                                    <img src="images/${encodeURIComponent(item.image)}" alt="${item.name}" class="collection-item-img">
+                                    <div class="collection-item-info">
+                                        <div class="collection-item-name">${item.name}</div>
+                                        <div class="collection-item-price">₹${item.price.toLocaleString()}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ${this.collection.length > 4 ? `<p style="text-align: center; margin-top: 1rem; color: #6c757d; font-style: italic;">+${this.collection.length - 4} more items</p>` : ''}
+                        <div class="collection-summary">
+                            <strong>Total: ${this.collection.length} items - ₹${total.toLocaleString()}</strong>
+                        </div>
+                    `;
+                    defaultCollection.className = 'collection-items-preview';
+                }
+            }
+
+            showCollection() {
+                const modal = document.getElementById('collection-modal');
+                const itemsDiv = document.getElementById('collection-items');
+                const totalDiv = document.getElementById('collection-total');
+                
+                if (this.collection.length === 0) {
+                    itemsDiv.innerHTML = '<div class="empty-collection">Your cart is empty<br>🛒 Start adding some toys!</div>';
+                    totalDiv.style.display = 'none';
+                } else {
+                    const total = this.collection.reduce((sum, item) => sum + item.price, 0);
+                    
+                    itemsDiv.innerHTML = this.collection.map(item => `
+                        <div class="collection-item">
+                            <div>
+                                <strong>${item.name}</strong><br>
+                                <span style="color: #0073aa;">₹${item.price.toLocaleString()}</span>
+                            </div>
+                            <button class="btn btn-secondary" onclick="toyStore.removeFromCollection(${item.id})">
+                                Remove
+                            </button>
+                        </div>
+                    `).join('');
+                    
+                    totalDiv.innerHTML = `Total: ${this.collection.length} items - ₹${total.toLocaleString()}`;
+                    totalDiv.style.display = 'block';
+                }
+                
+                modal.style.display = 'block';
+            }
+
+            hideCollection() {
+                document.getElementById('collection-modal').style.display = 'none';
+            }
+
+            sendToWhatsApp() {
+                if (this.collection.length === 0) {
+                    alert('Your cart is empty!');
+                    return;
+                }
+                
+                const total = this.collection.reduce((sum, item) => sum + item.price, 0);
+                const message = "🧸 *ToyLand Order Inquiry*\n\nHi! I'm interested in these toys:\n\n" + 
+                    this.collection.map((item, index) => `${index + 1}. ${item.name} - ₹${item.price.toLocaleString()}`).join('\n') +
+                    `\n\n📊 *Order Summary:*\n• Total Items: ${this.collection.length}\n• Total Amount: ₹${total.toLocaleString()}\n\nPlease confirm availability and delivery details. Thank you!`;
+                
+                const whatsappNumber = "+918072022478"; // Replace with actual business number
+                const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                
+                window.open(url, '_blank');
+            }
+
+            showProductDetail(toyId) {
+                const toy = this.toys.find(t => t.id === toyId);
+                if (!toy) return;
+                
+                const modal = document.getElementById('product-detail-modal');
+                const content = document.getElementById('product-detail-content');
+                
+                // Check if toy has detailed info
+                const hasDetailedInfo = toy.description && toy.specs;
+                
+                if (!hasDetailedInfo) {
+                    // Show basic info for toys without detailed specs
+                    content.innerHTML = `
+                        <div class="product-detail-header">
+                            <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-detail-image">
+                            <div class="product-detail-info">
+                                <h1 class="product-detail-title">${toy.name}</h1>
+                                <div class="product-detail-price">₹${toy.price.toLocaleString()}</div>
+                                <div class="product-detail-category">${toy.category}</div>
+                                <div class="product-description">
+                                    This is a quality ${toy.category.toLowerCase()} product perfect for hours of entertainment and fun. 
+                                    Contact us for more detailed specifications and availability.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">
+                                Add to Cart
+                            </button>
+                            <button class="btn" onclick="toyStore.hideProductDetail();" style="background: #6c757d;">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    // Show detailed info for toys with specs
+                    content.innerHTML = `
+                        <div class="product-detail-header">
+                            <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-detail-image">
+                            <div class="product-detail-info">
+                                <h1 class="product-detail-title">${toy.name}</h1>
+                                <div class="product-detail-price">₹${toy.price.toLocaleString()}</div>
+                                <div class="product-detail-category">${toy.category}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-description">
+                            ${toy.description}
+                        </div>
+                        
+                        <div class="product-specs">
+                            <h3>📋 Product Specifications</h3>
+                            ${Object.entries(toy.specs).map(([key, value]) => `
+                                <div class="spec-item">
+                                    <span class="spec-label">${key}:</span>
+                                    <span class="spec-value">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">
+                                Add to Cart
+                            </button>
+                            <button class="btn" onclick="toyStore.hideProductDetail();" style="background: #6c757d;">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    `;
+                }
+                
+                modal.style.display = 'block';
+            }
+
+            hideProductDetail() {
+                document.getElementById('product-detail-modal').style.display = 'none';
+            }
+
+            filterProducts() {
+                const searchTerm = document.getElementById('header-search').value.toLowerCase();
+                const category = document.querySelector('.category-tab.active').dataset.category;
+                
+                this.filteredToys = this.toys.filter(toy => {
+                    const matchesSearch = toy.name.toLowerCase().includes(searchTerm);
+                    const matchesCategory = category === 'all' || toy.category === category;
+                    return matchesSearch && matchesCategory;
+                });
+                
+                this.renderProducts();
+            }
+
+            switchCategory(category) {
+                // Update active tab
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector(`[data-category="${category}"]`).classList.add('active');
+                
+                // Filter products
+                this.filterProducts();
+            }
+
+            setupEventListeners() {
+                document.getElementById('view-collection').onclick = () => this.showCollection();
+                document.getElementById('whatsapp-btn').onclick = () => this.sendToWhatsApp();
+                document.querySelector('.close').onclick = () => this.hideCollection();
+                document.getElementById('product-detail-close').onclick = () => this.hideProductDetail();
+                
+                document.getElementById('header-search').addEventListener('input', () => this.filterProducts());
+                document.querySelector('.search-btn').addEventListener('click', () => this.filterProducts());
+                
+                // Category tabs event listeners
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        this.switchCategory(tab.dataset.category);
+                    });
+                });
+                
+                // Close modal when clicking outside
+                window.onclick = (event) => {
+                    const collectionModal = document.getElementById('collection-modal');
+                    const productModal = document.getElementById('product-detail-modal');
+                    
+                    if (event.target === collectionModal) {
+                        this.hideCollection();
+                    }
+                    if (event.target === productModal) {
+                        this.hideProductDetail();
+                    }
+                };
+            }
+        }
+
+        // Initialize the toy store
+        const toyStore = new ToyStore();
+    </script>
+</body>
+
+</html>

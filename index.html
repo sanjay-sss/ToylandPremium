@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToyLand-Premium Toy Store</title>
+    <title>Boovi Gift Decor</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -468,27 +468,6 @@
             margin-bottom: 0.75rem;
         }
         
-        .product-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 14px;
-        }
-        
-        .rating-badge {
-            background: #28a745;
-            color: #fff;
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 12px;
-        }
-        
-        .rating-count {
-            color: #6c757d;
-        }
-        
         .product-features {
             list-style: none;
             padding: 0;
@@ -617,8 +596,6 @@
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
             font-weight: 600;
             letter-spacing: 0.5px;
-            width: 100%;
-            margin-top: 1rem;
             padding: 12px;
             font-size: 16px;
             border-radius: 8px;
@@ -733,12 +710,13 @@
         }
         
         .product-actions {
-            display: flex;
-            gap: 1rem;
-        }
-        
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;  /* Add this */
+    }
+
         .product-actions .btn {
-            flex: 1;
+            flex: 0 1 48%;  /* Change to 48% width each instead of flex: 1 */
             padding: 12px;
             font-size: 16px;
         }
@@ -885,7 +863,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">TOYLAND</a>
+                <a href="#" class="logo">Boovi Gift Decor</a>
                 <div class="search-section">
                     <input type="text" class="header-search" id="header-search" placeholder="Search for toys, games and more...">
                     <button class="search-btn">🔍</button>
@@ -915,7 +893,7 @@
     <main>
         <div class="container">
             <div class="banner">
-                <h2>🎉 Welcome to ToyLand</h2>
+                <h2>🎉 Welcome to Boovi Gift Decor</h2>
                 <p>Discover premium toys for endless fun and learning.</p>
             </div>
 
@@ -1255,10 +1233,6 @@
             renderProducts(toysToRender = this.filteredToys) {
                     const grid = document.getElementById('products-grid');
                     grid.innerHTML = toysToRender.map((toy, index) => {
-                                // Generate random rating between 3.5 and 4.8
-                                const rating = (Math.random() * 1.3 + 3.5).toFixed(1);
-                                const ratingCount = Math.floor(Math.random() * 1000) + 100;
-
                                 // Generate random features
                                 const allFeatures = [
                                     'Safe & Non-toxic materials',
@@ -1279,10 +1253,6 @@
                         <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-image">
                         <div class="product-category">${toy.category}</div>
                         <h3 class="product-name">${toy.name}</h3>
-                        <div class="product-rating">
-                            <span class="rating-badge">${rating} ⭐</span>
-                            <span class="rating-count">(${ratingCount.toLocaleString()})</span>
-                        </div>
                         <p class="product-price">₹${toy.price.toLocaleString()}</p>
                         <ul class="product-features">
                             ${features.map(feature => `<li>${feature}</li>`).join('')}
@@ -1294,7 +1264,18 @@
                 `;
             }).join('');
         }
-
+            sendSingleProductToWhatsApp(toyId) {
+                const toy = this.toys.find(t => t.id === toyId);
+                if (!toy) return;
+                
+                const message = `🎁 *Boovi Gift Decor - Product Inquiry*\n\nHi! I'm interested in this product:\n\n*${toy.name}*\nPrice: ₹${toy.price.toLocaleString()}\nCategory: ${toy.category}\n\nPlease confirm availability and delivery details. Thank you!`;
+                
+                const whatsappNumber = "+918072022478";
+                const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                
+                window.open(url, '_blank');
+                this.hideProductDetail();
+            }
             addToCollection(toyId) {
                 const toy = this.toys.find(t => t.id === toyId);
                 if (toy && !this.collection.find(item => item.id === toyId)) {
@@ -1405,7 +1386,7 @@
                 }
                 
                 const total = this.collection.reduce((sum, item) => sum + item.price, 0);
-                const message = "🧸 *ToyLand Order Inquiry*\n\nHi! I'm interested in these toys:\n\n" + 
+                const message = "🎁 *Boovi Gift Decor - Order Inquiry*\n\nHi! I'm interested in these toys:\n\n" + 
                     this.collection.map((item, index) => `${index + 1}. ${item.name} - ₹${item.price.toLocaleString()}`).join('\n') +
                     `\n\n📊 *Order Summary:*\n• Total Items: ${this.collection.length}\n• Total Amount: ₹${total.toLocaleString()}\n\nPlease confirm availability and delivery details. Thank you!`;
                 
@@ -1466,22 +1447,31 @@
                         </div>
                         
                         <div class="product-specs">
-                            <h3>📋 Product Specifications</h3>
-                            ${Object.entries(toy.specs).map(([key, value]) => `
-                                <div class="spec-item">
-                                    <span class="spec-label">${key}:</span>
-                                    <span class="spec-value">${value}</span>
-                                </div>
-                            `).join('')}
+                        <h3>📋 Product Specifications</h3>
+                        <div class="spec-item">
+                            <span class="spec-label">Color:</span>
+                            <span class="spec-value">${toy.specs.Color || 'Multi-color'}</span>
                         </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Size:</span>
+                            <span class="spec-value">${toy.specs.Size || toy.specs.Height || toy.specs.Dimensions || 'Standard'}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Description:</span>
+                            <span class="spec-value">${toy.description}</span>
+                        </div>
+                    </div>
                         
                         <div class="product-actions">
                             <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">
                                 Add to Cart
                             </button>
-                            <button class="btn" onclick="toyStore.hideProductDetail();" style="background: #6c757d;">
-                                Continue Shopping
-                            </button>
+                            <button class="btn whatsapp-btn" onclick="toyStore.sendSingleProductToWhatsApp(${toy.id});">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
+                            </svg>
+                            Send to WhatsApp to Buy
+                        </button>
                         </div>
                     `;
                 }

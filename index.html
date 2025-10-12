@@ -563,7 +563,22 @@
             transition: all 0.3s ease;
             border: none;
         }
+        .fixed-cart-btn.empty {
+            background: linear-gradient(135deg, #9e9e9e 0%, #757575 100%);
+            opacity: 0.7;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+        }
 
+        .fixed-cart-btn.empty:hover {
+            background: linear-gradient(135deg, #757575 0%, #616161 100%);
+            opacity: 0.8;
+        }
+
+        .fixed-cart-btn.has-items {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 1;
+            box-shadow: 0 -4px 20px rgba(102, 126, 234, 0.5);
+        }
         .fixed-cart-btn:hover {
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
             box-shadow: 0 -6px 25px rgba(102, 126, 234, 0.7);
@@ -1059,8 +1074,17 @@
 
             updateCollectionCount() {
                 const count = this.collection.length;
+                const cartBtn = document.getElementById('fixed-cart-btn');
                 document.getElementById('bottom-cart-count').textContent = 
                     count > 0 ? `Cart (${count})` : 'Cart is Empty';
+                
+                if (count > 0) {
+                    cartBtn.classList.remove('empty');
+                    cartBtn.classList.add('has-items');
+                } else {
+                    cartBtn.classList.remove('has-items');
+                    cartBtn.classList.add('empty');
+                }
             }
 
             showCollection() {

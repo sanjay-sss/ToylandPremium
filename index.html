@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boovi & Gift Decor</title>
+    <title>Boovi  Gift & Decor</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -557,7 +557,7 @@
             text-align: center;
             font-size: 16px;
             font-weight: 600;
-            cursor: pointer;
+            /* cursor: pointer; */  /* Comment out or remove this */
             z-index: 999;
             box-shadow: 0 -4px 20px rgba(102, 126, 234, 0.5);
             transition: all 0.3s ease;
@@ -567,6 +567,8 @@
             background: linear-gradient(135deg, #9e9e9e 0%, #757575 100%);
             opacity: 0.7;
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            pointer-events: none !important;  /* Disables clicks and hovers */
+            cursor: not-allowed !important;   /* Forces disabled cursor */
         }
 
         .fixed-cart-btn.empty:hover {
@@ -726,7 +728,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">Boovi & Gift Decor</a>
+                <a href="#" class="logo">Boovi  Gift & Decor</a>
                 <div class="search-section">
                     <input type="text" class="header-search" id="header-search" placeholder="Search for toys, games and more...">
                     <button class="search-btn">🔍</button>
@@ -752,7 +754,7 @@
     <main>
         <div class="container">
             <div class="banner">
-                <h2>🎉 Welcome to Boovi & Gift Decor</h2>
+                <h2>🎉 Welcome to Boovi  Gift & Decor</h2>
                 <p>Discover premium toys for endless fun and learning.</p>
             </div>
 
@@ -1076,14 +1078,18 @@
                 const count = this.collection.length;
                 const cartBtn = document.getElementById('fixed-cart-btn');
                 document.getElementById('bottom-cart-count').textContent = 
-                    count > 0 ? `Cart (${count})` : 'Cart is Empty';
+                    count > 0 ? `View Cart & Buy (${count})` : 'Cart is Empty';
                 
                 if (count > 0) {
                     cartBtn.classList.remove('empty');
                     cartBtn.classList.add('has-items');
+                    cartBtn.onclick = () => this.showCollection();
+                    console.log('Cart enabled');  // Debug: Check console in browser dev tools
                 } else {
                     cartBtn.classList.remove('has-items');
                     cartBtn.classList.add('empty');
+                    cartBtn.onclick = null;
+                    console.log('Cart disabled');  // Debug: Check console
                 }
             }
 
@@ -1128,7 +1134,7 @@
                 }
                 
                 const total = this.collection.reduce((sum, item) => sum + item.price, 0);
-                const message = "🎁 *Boovi & Gift Decor - Order Inquiry*\n\nHi! I'm interested in these toys:\n\n" + 
+                const message = "🎁 *Boovi  Gift & Decor - Order Inquiry*\n\nHi! I'm interested in these toys:\n\n" + 
                     this.collection.map((item, index) => `${index + 1}. ${item.name} - ₹${item.price.toLocaleString()}`).join('\n') +
                     `\n\n📊 *Order Summary:*\n• Total Items: ${this.collection.length}\n• Total Amount: ₹${total.toLocaleString()}\n\nPlease confirm availability and delivery details. Thank you!`;
                 
@@ -1142,7 +1148,7 @@
                 const toy = this.toys.find(t => t.id === toyId);
                 if (!toy) return;
                 
-                const message = `🎁 *Boovi & Gift Decor - Product Inquiry*\n\nHi! I'm interested in this product:\n\n*${toy.name}*\nPrice: ₹${toy.price.toLocaleString()}\nCategory: ${toy.category}\n\nPlease confirm availability and delivery details. Thank you!`;
+                const message = `🎁 *Boovi  Gift & Decor - Product Inquiry*\n\nHi! I'm interested in this product:\n\n*${toy.name}*\nPrice: ₹${toy.price.toLocaleString()}\nCategory: ${toy.category}\n\nPlease confirm availability and delivery details. Thank you!`;
                 
                 const whatsappNumber = "+918072022478";
                 const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;

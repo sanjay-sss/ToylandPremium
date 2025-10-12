@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boovi Gift Decor</title>
+    <title>Boovi & Gift Decor</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -36,18 +36,6 @@
             opacity: 0.1;
         }
         
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -77,6 +65,7 @@
             font-size: 1.8rem;
             font-weight: 700;
             color: #ffffff;
+            text-decoration: none;
         }
         
         .logo:hover {
@@ -123,33 +112,6 @@
             background: #34495e;
         }
         
-        .cart-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .cart-count {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 14px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-        
         .btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
@@ -162,7 +124,6 @@
             transition: all 0.2s ease;
             text-decoration: none;
             display: inline-block;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .btn:hover {
@@ -234,7 +195,7 @@
         }
         
         main {
-            padding: 2rem 0;
+            padding: 2rem 0 100px 0;
         }
         
         .banner {
@@ -245,24 +206,18 @@
             margin-bottom: 2rem;
             color: #fff;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             position: relative;
             overflow: hidden;
             animation: float 3s ease-in-out infinite;
         }
         
         @keyframes float {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0px);
             }
             50% {
                 transform: translateY(-10px);
             }
-        }
-        
-        .banner::after {
-            display: none;
         }
         
         .banner h2 {
@@ -271,7 +226,6 @@
             margin-bottom: 0.5rem;
             position: relative;
             z-index: 1;
-            text-shadow: none;
         }
         
         .banner p {
@@ -354,10 +308,6 @@
         }
         
         .collection-item-price {
-            background: none;
-            -webkit-background-clip: initial;
-            -webkit-text-fill-color: #8b7355;
-            background-clip: text;
             font-weight: 600;
             font-size: 16px;
             color: #8b7355;
@@ -379,7 +329,6 @@
             gap: 1.5rem;
             margin-top: 1.5rem;
             align-items: stretch;
-            /* Add this - makes all cards same height */
         }
         
         .product-card {
@@ -394,22 +343,6 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            /* Add this */
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .product-card:hover::before {
-            opacity: 1;
         }
         
         .product-card:hover {
@@ -480,9 +413,7 @@
         
         .product-card .btn {
             margin-top: auto;
-            /* This keeps button at bottom */
             width: 100%;
-            /* Makes button full width */
         }
         
         .product-features li {
@@ -523,7 +454,6 @@
         
         .modal-content {
             background: #ffffff;
-            backdrop-filter: blur(20px);
             margin: 5% auto;
             padding: 2rem;
             border-radius: 20px;
@@ -534,7 +464,6 @@
             position: relative;
             animation: slideIn 0.3s ease;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         @keyframes slideIn {
@@ -617,6 +546,33 @@
             background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
         }
         
+        .fixed-cart-btn {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 -4px 20px rgba(102, 126, 234, 0.5);
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .fixed-cart-btn:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            box-shadow: 0 -6px 25px rgba(102, 126, 234, 0.7);
+        }
+
+        .fixed-cart-btn:active {
+            transform: scale(0.98);
+        }
+        
         .product-detail-modal .modal-content {
             max-width: 700px;
         }
@@ -649,10 +605,6 @@
         .product-detail-price {
             font-size: 28px;
             font-weight: 600;
-            background: none;
-            -webkit-background-clip: initial;
-            -webkit-text-fill-color: #8b7355;
-            background-clip: text;
             color: #8b7355;
             margin-bottom: 1rem;
         }
@@ -710,13 +662,13 @@
         }
         
         .product-actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: space-between;  /* Add this */
-    }
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+        }
 
         .product-actions .btn {
-            flex: 0 1 48%;  /* Change to 48% width each instead of flex: 1 */
+            flex: 0 1 48%;
             padding: 12px;
             font-size: 16px;
         }
@@ -733,45 +685,6 @@
             .search-section {
                 max-width: 100%;
             }
-            .header-search {
-                font-size: 14px;
-                padding: 10px 40px 10px 14px;
-            }
-            .cart-count {
-                padding: 4px 10px;
-                font-size: 12px;
-            }
-            .btn {
-                padding: 10px 16px;
-                font-size: 14px;
-                min-width: 100px;
-            }
-            .categories-nav {
-                top: 0;
-            }
-            .category-tabs {
-                padding: 0 10px;
-            }
-            .category-tab {
-                padding: 10px 15px;
-                font-size: 13px;
-            }
-            .banner {
-                padding: 2rem 1rem;
-                border-radius: 12px;
-            }
-            .banner h2 {
-                font-size: 1.4rem;
-            }
-            .banner p {
-                font-size: 1rem;
-            }
-            .section {
-                padding: 1.5rem;
-            }
-            .section-title {
-                font-size: 1.2rem;
-            }
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
@@ -782,41 +695,6 @@
             .product-image {
                 height: 150px;
             }
-            .product-name {
-                font-size: 14px;
-                height: 40px;
-            }
-            .product-price {
-                font-size: 16px;
-            }
-            .product-rating {
-                font-size: 12px;
-            }
-            .product-features {
-                font-size: 12px;
-            }
-            .collection-items-preview {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-            }
-            .collection-item-preview {
-                padding: 0.76rem;
-            }
-            .collection-item-img {
-                width: 40px;
-                height: 40px;
-            }
-            .collection-item-name {
-                font-size: 12px;
-            }
-            .collection-item-price {
-                font-size: 14px;
-            }
-            .modal-content {
-                width: 95%;
-                padding: 1.5rem;
-                border-radius: 16px;
-            }
             .product-detail-header {
                 flex-direction: column;
                 gap: 1rem;
@@ -824,36 +702,6 @@
             .product-detail-image {
                 width: 100%;
                 height: 200px;
-            }
-            .product-detail-title {
-                font-size: 20px;
-            }
-            .product-detail-price {
-                font-size: 24px;
-            }
-            .product-description {
-                font-size: 14px;
-            }
-            .product-specs {
-                padding: 1rem;
-            }
-            .product-specs h3 {
-                font-size: 16px;
-            }
-            .spec-item {
-                font-size: 14px;
-            }
-            .product-actions {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            .whatsapp-btn {
-                padding: 10px;
-                font-size: 14px;
-            }
-            .btn-secondary {
-                padding: 8px 12px;
-                font-size: 12px;
             }
         }
     </style>
@@ -863,14 +711,10 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">Boovi Gift Decor</a>
+                <a href="#" class="logo">Boovi & Gift Decor</a>
                 <div class="search-section">
                     <input type="text" class="header-search" id="header-search" placeholder="Search for toys, games and more...">
                     <button class="search-btn">🔍</button>
-                </div>
-                <div class="cart-info">
-                    <span class="cart-count" id="cart-count">Cart (0)</span>
-                    <button class="btn" id="view-collection">View Cart</button>
                 </div>
             </div>
         </div>
@@ -893,18 +737,8 @@
     <main>
         <div class="container">
             <div class="banner">
-                <h2>🎉 Welcome to Boovi Gift Decor</h2>
+                <h2>🎉 Welcome to Boovi & Gift Decor</h2>
                 <p>Discover premium toys for endless fun and learning.</p>
-            </div>
-
-            <div class="section" id="collections-section">
-                <h2 class="section-title">Your Cart</h2>
-                <div class="default-collection" id="default-collection">
-                    <div>
-                        <p><strong>Your cart is empty</strong></p>
-                        <p>Start shopping to see items here!</p>
-                    </div>
-                </div>
             </div>
 
             <div class="section">
@@ -921,10 +755,10 @@
             <div id="collection-items"></div>
             <div class="collection-total" id="collection-total" style="display: none;"></div>
             <button class="btn whatsapp-btn" id="whatsapp-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
-            </svg>
-            Send to WhatsApp to buy
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
+                </svg>
+                Send to WhatsApp to buy
             </button>
         </div>
     </div>
@@ -936,8 +770,13 @@
         </div>
     </div>
 
+    <div class="fixed-cart-btn" id="fixed-cart-btn">
+        <span id="bottom-cart-count">Cart is Empty</span>
+    <span style="margin-left: 10px; font-size: 24px;">›</span>
+
+    </div>
+
     <script>
-        // List of actual image filenames from your folder
         const imageFilenames = [
             "WhatsApp Image 2025-10-04 at 17.51.31 (1).jpeg",
             "WhatsApp Image 2025-10-04 at 17.51.31.jpeg",
@@ -961,7 +800,6 @@
             "WhatsApp Image 2025-10-04 at 17.51.38.jpeg"
         ];
 
-        // Sample toys data with detailed specs for first 5 items, using actual image filenames
         const toys = [{
             id: 1,
             name: "Super Hero Action Figure",
@@ -1127,84 +965,18 @@
             price: 899,
             category: "Dolls",
             image: imageFilenames[19]
-        }, {
-            id: 21,
-            name: "Counting Bears Set",
-            price: 299,
-            category: "Educational",
-            image: imageFilenames[0]
-        }, {
-            id: 22,
-            name: "Racing Car Collection",
-            price: 1199,
-            category: "Vehicles",
-            image: imageFilenames[1]
-        }, {
-            id: 23,
-            name: "UNO Card Game",
-            price: 199,
-            category: "Board Games",
-            image: imageFilenames[2]
-        }, {
-            id: 24,
-            name: "LEGO Castle Set",
-            price: 2899,
-            category: "Building Blocks",
-            image: imageFilenames[3]
-        }, {
-            id: 25,
-            name: "Wonder Woman Figure",
-            price: 399,
-            category: "Action Figures",
-            image: imageFilenames[4]
-        }, {
-            id: 26,
-            name: "Medical Kit Doll Set",
-            price: 749,
-            category: "Dolls",
-            image: imageFilenames[5]
-        }, {
-            id: 27,
-            name: "Geography Puzzle",
-            price: 399,
-            category: "Educational",
-            image: imageFilenames[6]
-        }, {
-            id: 28,
-            name: "Ambulance Toy",
-            price: 389,
-            category: "Vehicles",
-            image: imageFilenames[7]
-        }, {
-            id: 29,
-            name: "Risk Strategy Game",
-            price: 1299,
-            category: "Board Games",
-            image: imageFilenames[8]
-        }, {
-            id: 30,
-            name: "LEGO Star Wars Set",
-            price: 4999,
-            category: "Building Blocks",
-            image: imageFilenames[9]
         }];
 
-        // Generate remaining toys programmatically to reach 300, cycling through available images
-        for (let i = 31; i <= 300; i++) {
+        for (let i = 21; i <= 300; i++) {
             const categories = ["Action Figures", "Dolls", "Educational", "Building Blocks", "Vehicles", "Board Games"];
-            const names = [
-                "Super Hero", "Princess", "Learning", "Building", "Racing", "Strategy",
-                "Adventure", "Creative", "Musical", "Puzzle", "Classic", "Modern"
-            ];
-            const types = [
-                "Figure", "Doll", "Game", "Set", "Toy", "Kit", "Collection", "Playset"
-            ];
+            const names = ["Super Hero", "Princess", "Learning", "Building", "Racing", "Strategy", "Adventure", "Creative", "Musical", "Puzzle", "Classic", "Modern"];
+            const types = ["Figure", "Doll", "Game", "Set", "Toy", "Kit", "Collection", "Playset"];
 
             const category = categories[Math.floor(Math.random() * categories.length)];
             const name = names[Math.floor(Math.random() * names.length)];
             const type = types[Math.floor(Math.random() * types.length)];
             const price = Math.floor(Math.random() * 3000) + 199;
-            const imageIndex = (i - 1) % imageFilenames.length; // Cycle through the 20 images
+            const imageIndex = (i - 1) % imageFilenames.length;
 
             toys.push({
                 id: i,
@@ -1218,7 +990,7 @@
         class ToyStore {
             constructor() {
                 this.toys = toys;
-                this.collection = JSON.parse(localStorage.getItem('toyCollection')) || [];
+                this.collection = [];
                 this.filteredToys = [...this.toys];
                 this.init();
             }
@@ -1226,93 +998,49 @@
             init() {
                 this.renderProducts();
                 this.updateCollectionCount();
-                this.updateDefaultCollection();
                 this.setupEventListeners();
             }
 
             renderProducts(toysToRender = this.filteredToys) {
-                    const grid = document.getElementById('products-grid');
-                    grid.innerHTML = toysToRender.map((toy, index) => {
-                                // Generate random features
-                                const allFeatures = [
-                                    'Safe & Non-toxic materials',
-                                    'Age appropriate design',
-                                    'Durable construction',
-                                    'Educational value',
-                                    'Easy to clean',
-                                    'Recommended by parents',
-                                    'Premium quality',
-                                    'Warranty included',
-                                    'Fast delivery',
-                                    'Best seller'
-                                ];
-                                const features = allFeatures.sort(() => 0.5 - Math.random()).slice(0, 3);
+                const grid = document.getElementById('products-grid');
+                grid.innerHTML = toysToRender.map((toy, index) => {
+                    const allFeatures = [
+                        'Safe & Non-toxic materials',
+                        'Age appropriate design',
+                        'Durable construction',
+                        'Educational value',
+                        'Easy to clean',
+                        'Recommended by parents',
+                        'Premium quality',
+                        'Warranty included',
+                        'Fast delivery',
+                        'Best seller'
+                    ];
+                    const features = allFeatures.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-                                return `
-                    <div class="product-card" style="animation-delay: ${index * 0.05}s" onclick="toyStore.showProductDetail(${toy.id})">
-                        <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-image">
-                        <div class="product-category">${toy.category}</div>
-                        <h3 class="product-name">${toy.name}</h3>
-                        <p class="product-price">₹${toy.price.toLocaleString()}</p>
-                        <ul class="product-features">
-                            ${features.map(feature => `<li>${feature}</li>`).join('')}
-                        </ul>
-                        <button class="btn" onclick="event.stopPropagation(); toyStore.addToCollection(${toy.id})">
-                            Add to Cart
-                        </button>
-                    </div>
-                `;
-            }).join('');
-        }
-            sendSingleProductToWhatsApp(toyId) {
-            const toy = this.toys.find(t => t.id === toyId);
-            if (!toy) return;
-            
-            const message = `
-        ╔═══════════════════════╗
-        🎁 *BOOVI GIFT DECOR* 🎁
-        ╚═══════════════════════╝
+                    return `
+                        <div class="product-card" style="animation-delay: ${index * 0.05}s" onclick="toyStore.showProductDetail(${toy.id})">
+                            <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-image">
+                            <div class="product-category">${toy.category}</div>
+                            <h3 class="product-name">${toy.name}</h3>
+                            <p class="product-price">₹${toy.price.toLocaleString()}</p>
+                            <ul class="product-features">
+                                ${features.map(feature => `<li>${feature}</li>`).join('')}
+                            </ul>
+                            <button class="btn" onclick="event.stopPropagation(); toyStore.addToCollection(${toy.id})">
+                                Add to Cart
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            }
 
-        ✨ *Product Inquiry* ✨
-
-        Hello! I'm interested in ordering:
-
-        ━━━━━━━━━━━━━━━━━━━━━━
-        📦 *Product Details:*
-        ━━━━━━━━━━━━━━━━━━━━━━
-
-        🏷️ *Name:* ${toy.name}
-        💰 *Price:* ₹${toy.price.toLocaleString()}
-        📂 *Category:* ${toy.category}
-
-        ━━━━━━━━━━━━━━━━━━━━━━
-
-        Please confirm:
-        ✅ Product availability
-        ✅ Delivery timeline
-        ✅ Payment options
-
-        Thank you! 🙏
-
-        📞 *Contact:* 8072022478, 6374636139
-        🎯 *Boovi Gift Decor - Your Gifting Partner*
-            `.trim();
-            
-            const whatsappNumber = "+918072022478";
-            const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-            
-            window.open(url, '_blank');
-            this.hideProductDetail();
-        }
             addToCollection(toyId) {
                 const toy = this.toys.find(t => t.id === toyId);
                 if (toy && !this.collection.find(item => item.id === toyId)) {
                     this.collection.push(toy);
-                    this.saveCollection();
                     this.updateCollectionCount();
-                    this.updateDefaultCollection();
                     
-                    // Visual feedback
                     const button = event.target;
                     button.textContent = '✓ Added';
                     button.style.background = '#28a745';
@@ -1325,52 +1053,14 @@
 
             removeFromCollection(toyId) {
                 this.collection = this.collection.filter(item => item.id !== toyId);
-                this.saveCollection();
                 this.updateCollectionCount();
-                this.updateDefaultCollection();
                 this.showCollection();
             }
 
-            saveCollection() {
-                localStorage.setItem('toyCollection', JSON.stringify(this.collection));
-            }
-
             updateCollectionCount() {
-                document.getElementById('cart-count').textContent = `Cart (${this.collection.length})`;
-            }
-
-            updateDefaultCollection() {
-                const defaultCollection = document.getElementById('default-collection');
-                
-                if (this.collection.length === 0) {
-                    defaultCollection.innerHTML = `
-                        <div>
-                            <p><strong>Your cart is empty</strong></p>
-                            <p>Start shopping to see items here!</p>
-                        </div>
-                    `;
-                    defaultCollection.className = 'default-collection';
-                } else {
-                    const total = this.collection.reduce((sum, item) => sum + item.price, 0);
-                    defaultCollection.innerHTML = `
-                        <div class="collection-items-preview">
-                            ${this.collection.slice(0, 4).map(item => `
-                                <div class="collection-item-preview">
-                                    <img src="images/${encodeURIComponent(item.image)}" alt="${item.name}" class="collection-item-img">
-                                    <div class="collection-item-info">
-                                        <div class="collection-item-name">${item.name}</div>
-                                        <div class="collection-item-price">₹${item.price.toLocaleString()}</div>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                        ${this.collection.length > 4 ? `<p style="text-align: center; margin-top: 1rem; color: #6c757d; font-style: italic;">+${this.collection.length - 4} more items</p>` : ''}
-                        <div class="collection-summary">
-                            <strong>Total: ${this.collection.length} items - ₹${total.toLocaleString()}</strong>
-                        </div>
-                    `;
-                    defaultCollection.className = 'collection-items-preview';
-                }
+                const count = this.collection.length;
+                document.getElementById('bottom-cart-count').textContent = 
+                    count > 0 ? `Cart (${count})` : 'Cart is Empty';
             }
 
             showCollection() {
@@ -1388,7 +1078,7 @@
                         <div class="collection-item">
                             <div>
                                 <strong>${item.name}</strong><br>
-                                <span style="color: #0073aa;">₹${item.price.toLocaleString()}</span>
+                                <span style="color: #8b7355;">₹${item.price.toLocaleString()}</span>
                             </div>
                             <button class="btn btn-secondary" onclick="toyStore.removeFromCollection(${item.id})">
                                 Remove
@@ -1414,14 +1104,27 @@
                 }
                 
                 const total = this.collection.reduce((sum, item) => sum + item.price, 0);
-                const message = "🎁 *Boovi Gift Decor - Order Inquiry*\n\nHi! I'm interested in these toys:\n\n" + 
+                const message = "🎁 *Boovi & Gift Decor - Order Inquiry*\n\nHi! I'm interested in these toys:\n\n" + 
                     this.collection.map((item, index) => `${index + 1}. ${item.name} - ₹${item.price.toLocaleString()}`).join('\n') +
                     `\n\n📊 *Order Summary:*\n• Total Items: ${this.collection.length}\n• Total Amount: ₹${total.toLocaleString()}\n\nPlease confirm availability and delivery details. Thank you!`;
                 
-                const whatsappNumber = "+918072022478"; // Replace with actual business number
+                const whatsappNumber = "+918072022478";
                 const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
                 
                 window.open(url, '_blank');
+            }
+
+            sendSingleProductToWhatsApp(toyId) {
+                const toy = this.toys.find(t => t.id === toyId);
+                if (!toy) return;
+                
+                const message = `🎁 *Boovi & Gift Decor - Product Inquiry*\n\nHi! I'm interested in this product:\n\n*${toy.name}*\nPrice: ₹${toy.price.toLocaleString()}\nCategory: ${toy.category}\n\nPlease confirm availability and delivery details. Thank you!`;
+                
+                const whatsappNumber = "+918072022478";
+                const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                
+                window.open(url, '_blank');
+                this.hideProductDetail();
             }
 
             showProductDetail(toyId) {
@@ -1431,11 +1134,9 @@
                 const modal = document.getElementById('product-detail-modal');
                 const content = document.getElementById('product-detail-content');
                 
-                // Check if toy has detailed info
                 const hasDetailedInfo = toy.description && toy.specs;
                 
                 if (!hasDetailedInfo) {
-                    // Show basic info for toys without detailed specs
                     content.innerHTML = `
                         <div class="product-detail-header">
                             <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-detail-image">
@@ -1453,13 +1154,15 @@
                             <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">
                                 Add to Cart
                             </button>
-                            <button class="btn" onclick="toyStore.hideProductDetail();" style="background: #6c757d;">
-                                Continue Shopping
+                            <button class="btn whatsapp-btn" onclick="toyStore.sendSingleProductToWhatsApp(${toy.id});">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
+                                </svg>
+                                Buy on WhatsApp
                             </button>
                         </div>
                     `;
                 } else {
-                    // Show detailed info for toys with specs
                     content.innerHTML = `
                         <div class="product-detail-header">
                             <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-detail-image">
@@ -1475,31 +1178,31 @@
                         </div>
                         
                         <div class="product-specs">
-                        <h3>📋 Product Specifications</h3>
-                        <div class="spec-item">
-                            <span class="spec-label">Color:</span>
-                            <span class="spec-value">${toy.specs.Color || 'Multi-color'}</span>
+                            <h3>📋 Product Specifications</h3>
+                            <div class="spec-item">
+                                <span class="spec-label">Color:</span>
+                                <span class="spec-value">${toy.specs.Color || toy.specs['Age Range'] || 'Multi-color'}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Size:</span>
+                                <span class="spec-value">${toy.specs.Size || toy.specs.Height || toy.specs.Dimensions || 'Standard'}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Description:</span>
+                                <span class="spec-value">${toy.description}</span>
+                            </div>
                         </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Size:</span>
-                            <span class="spec-value">${toy.specs.Size || toy.specs.Height || toy.specs.Dimensions || 'Standard'}</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Description:</span>
-                            <span class="spec-value">${toy.description}</span>
-                        </div>
-                    </div>
                         
                         <div class="product-actions">
                             <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">
                                 Add to Cart
                             </button>
                             <button class="btn whatsapp-btn" onclick="toyStore.sendSingleProductToWhatsApp(${toy.id});">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
-                            </svg>
-                            Send to WhatsApp to Buy
-                        </button>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
+                                </svg>
+                                Buy on WhatsApp
+                            </button>
                         </div>
                     `;
                 }
@@ -1525,18 +1228,16 @@
             }
 
             switchCategory(category) {
-                // Update active tab
                 document.querySelectorAll('.category-tab').forEach(tab => {
                     tab.classList.remove('active');
                 });
                 document.querySelector(`[data-category="${category}"]`).classList.add('active');
                 
-                // Filter products
                 this.filterProducts();
             }
 
             setupEventListeners() {
-                document.getElementById('view-collection').onclick = () => this.showCollection();
+                document.getElementById('fixed-cart-btn').onclick = () => this.showCollection();
                 document.getElementById('whatsapp-btn').onclick = () => this.sendToWhatsApp();
                 document.querySelector('.close').onclick = () => this.hideCollection();
                 document.getElementById('product-detail-close').onclick = () => this.hideProductDetail();
@@ -1544,14 +1245,12 @@
                 document.getElementById('header-search').addEventListener('input', () => this.filterProducts());
                 document.querySelector('.search-btn').addEventListener('click', () => this.filterProducts());
                 
-                // Category tabs event listeners
                 document.querySelectorAll('.category-tab').forEach(tab => {
                     tab.addEventListener('click', () => {
                         this.switchCategory(tab.dataset.category);
                     });
                 });
                 
-                // Close modal when clicking outside
                 window.onclick = (event) => {
                     const collectionModal = document.getElementById('collection-modal');
                     const productModal = document.getElementById('product-detail-modal');
@@ -1566,9 +1265,7 @@
             }
         }
 
-        // Initialize the toy store
         const toyStore = new ToyStore();
     </script>
 </body>
-
 </html>

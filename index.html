@@ -1004,6 +1004,34 @@ async function loadToysFromSheet() {
                 const content = document.getElementById('product-detail-content');
                 
                 const fallbackDesc = `This is a quality ${toy.category.toLowerCase()} product perfect for hours of entertainment and fun. Contact us for more detailed specifications and availability.`;
+                
+                // Function to format specs into bold bullets
+                function formatSpecs(text) {
+                    if (!text || text.trim() === '') return '<p>No specifications available.</p>';
+                    
+                    // Split by newlines or periods (handling multi-line or sentence structure)
+                    const lines = text.split(/\n|(?<=[\.\!\?])\s+/).map(line => line.trim()).filter(line => line);
+                    
+                    const bullets = lines.map(line => {
+                        // Regex patterns: Header: Value or Header. Value
+                        let match = line.match(/^(.+?)[.:]\s*(.*)$/);
+                        if (match) {
+                            const header = match[1].trim();
+                            const value = match[2].trim();
+                            if (header && value) {
+                                return `<li><strong>${header}:</strong> ${value}</li>`;
+                            }
+                        }
+                        // Fallback: Treat whole line as value under "Details" or plain
+                        return `<li>${line}</li>`;
+                    }).join('');
+                    
+                    if (bullets) {
+                        return `<ul class="product-features">${bullets}</ul>`;
+                    }
+                    return `<p>${text}</p>`;
+                }
+                
                 content.innerHTML = `
                     <div class="product-detail-header">
                         <img src="${toy.image}" alt="${toy.name}" class="product-detail-image">
@@ -1015,7 +1043,7 @@ async function loadToysFromSheet() {
                     </div>
                     <h3 style="color: #1a1a1a; margin-bottom: 1rem; font-size: 18px; font-weight: 600;">Product Specifications</h3>
                     <div class="product-description">
-                        ${toy.description || fallbackDesc}
+                        ${formatSpecs(toy.description || fallbackDesc)}
                     </div>
                     <div class="product-actions">
                         <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">

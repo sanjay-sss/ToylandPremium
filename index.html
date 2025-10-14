@@ -736,6 +736,11 @@
             </div>
         </div>
     </header>
+    <nav class="categories-nav">
+    <div class="container">
+        <div class="category-tabs" id="category-tabs"></div>
+    </div>
+    </nav>
     <main>
         <div class="container">
             <div class="banner">
@@ -794,21 +799,13 @@ async function loadToysFromSheet() {
             skipEmptyLines: true,
             complete: function(results) {
                 toys = results.data.map((row, index) => {
-                    if (index === 0) {  // Log headers from first data row (or adjust)
-                        console.log('Available column keys:', Object.keys(row));
-                    }
                     return {
                         id: parseInt(row.id) || index + 1,
                         name: row.name || 'Unnamed Product',
                         price: parseInt(row.price) || 0,
                         category: row.category || 'Other',
                         image: row['image link'] || '',
-                        description: row['Product specifications '] || 'Quality product for hours of fun.',
-                        specs: {
-                            Color: 'Multi-color',
-                            Size: 'Standard',
-                            description: row['Product specifications '] || 'Quality product'
-                        }
+                        description: row['Product specifications '] || 'Quality product for hours of fun.'
                     };
                 }).filter(toy => toy.id && toy.name !== 'Unnamed Product');
 
@@ -827,13 +824,16 @@ async function loadToysFromSheet() {
 
                 console.log('Frequent categories:', frequentCategories); // Debug log
 
-                // Render dynamic tabs
-                const tabsContainer = document.getElementById('category-tabs');
-                tabsContainer.innerHTML = '<button class="category-tab active" data-category="all">All</button>';
-                frequentCategories.forEach(cat => {
-                    tabsContainer.innerHTML += `<button class="category-tab" data-category="${cat}">${cat}</button>`;
+                // Render dynamic tabs (sync on next micro-task to avoid flicker)
+                queueMicrotask(() => {
+                    const tabsContainer = document.getElementById('category-tabs');
+                    tabsContainer.innerHTML = '<button class="category-tab active" data-category="all">All</button>';
+                    frequentCategories.forEach(cat => {
+                        tabsContainer.innerHTML += `<button class="category-tab" data-category="${cat}">${cat}</button>`;
+                    });
+                    // Re-bind listeners after rendering (ensures new tabs are clickable immediately)
+                    window.toyStore.setupEventListeners();  // Call early if needed
                 });
-
                 console.log('Loaded toys:', toys); // Debug log
                 window.toyStore = new ToyStore();
             },
@@ -1004,6 +1004,10 @@ async function loadToysFromSheet() {
                             const header = match[1].trim();
                             const value = match[2].trim();
                             if (header && value) {
+                                // Skip bolding if header is purely numeric or ends with digits (e.g., 'Realistic 1', '2')
+                                if (/^\d+$/.test(header) || header.match(/\d+$/)) {
+                                    return `<li>${line}</li>`;
+                                }
                                 return `<li><strong>${header}:</strong> ${value}</li>`;
                             }
                         }

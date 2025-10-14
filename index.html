@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boovi  Gift & Decor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -793,222 +794,82 @@
     </div>
 
     <script>
-        const imageFilenames = [
-            "WhatsApp Image 2025-10-04 at 17.51.31 (1).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.31.jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.32 (1).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.32 (2).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.32.jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.33 (1).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.33.jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.34 (1).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.34.jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.35 (1).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.35 (2).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.35.jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.36 (1).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.36 (2).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.36.jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.37 (1).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.37 (2).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.37.jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.38 (1).jpeg",
-            "WhatsApp Image 2025-10-04 at 17.51.38.jpeg"
-        ];
+let toys = [];
 
-        const toys = [{
-            id: 1,
-            name: "Super Hero Action Figure",
-            price: 299,
-            category: "Action Figures",
-            image: imageFilenames[0],
-            description: "Transform into your favorite superhero with this premium action figure featuring 20+ points of articulation and authentic costume details.",
-            specs: {
-                "Age Range": "4-12 years",
-                "Material": "High-quality ABS plastic",
-                "Height": "6 inches",
-                "Features": "Moveable joints, Cape included",
-                "Brand": "HeroToys",
-                "Safety": "Non-toxic materials"
-            }
-        }, {
-            id: 2,
-            name: "Princess Doll House",
-            price: 1999,
-            category: "Dolls",
-            image: imageFilenames[1],
-            description: "A magical 3-story dollhouse complete with furniture, dolls, and accessories. Perfect for imaginative play and storytelling.",
-            specs: {
-                "Age Range": "3-10 years",
-                "Dimensions": "24 x 18 x 20 inches",
-                "Rooms": "6 fully furnished rooms",
-                "Includes": "2 dolls, 25+ furniture pieces",
-                "Material": "Premium wood and plastic",
-                "Assembly": "Adult assembly required"
-            }
-        }, {
-            id: 3,
-            name: "Learning Alphabet Blocks",
-            price: 449,
-            category: "Educational",
-            image: imageFilenames[2],
-            description: "Colorful wooden blocks featuring letters, numbers, and pictures. Helps develop fine motor skills and early literacy.",
-            specs: {
-                "Age Range": "1-5 years",
-                "Pieces": "26 alphabet blocks + 10 number blocks",
-                "Material": "Sustainable wood with safe paint",
-                "Size": "1.5 x 1.5 inches per block",
-                "Learning Focus": "Letters, Numbers, Colors",
-                "Certification": "CE marked, ASTM certified"
-            }
-        }, {
-            id: 4,
-            name: "LEGO City Building Set",
-            price: 2499,
-            category: "Building Blocks",
-            image: imageFilenames[3],
-            description: "Build your own city with this comprehensive LEGO set featuring buildings, vehicles, and minifigures for endless creative possibilities.",
-            specs: {
-                "Age Range": "6-14 years",
-                "Pieces": "850+ pieces",
-                "Minifigures": "8 included",
-                "Vehicles": "Police car, Fire truck, Ambulance",
-                "Buildings": "Police station, Fire station, Hospital",
-                "Compatibility": "Compatible with all LEGO sets"
-            }
-        }, {
-            id: 5,
-            name: "Remote Control Car",
-            price: 899,
-            category: "Vehicles",
-            image: imageFilenames[4],
-            description: "High-speed RC car with advanced controls and durable design. Perfect for indoor and outdoor racing adventures.",
-            specs: {
-                "Age Range": "8+ years",
-                "Speed": "Up to 25 km/h",
-                "Range": "100 meters",
-                "Battery Life": "45 minutes continuous play",
-                "Features": "LED lights, Sound effects",
-                "Charging Time": "2 hours"
-            }
-        }, {
-            id: 6,
-            name: "Chess Board Set",
-            price: 699,
-            category: "Board Games",
-            image: imageFilenames[5]
-        }, {
-            id: 7,
-            name: "Barbie Fashion Doll",
-            price: 799,
-            category: "Dolls",
-            image: imageFilenames[6]
-        }, {
-            id: 8,
-            name: "Transformer Robot",
-            price: 1299,
-            category: "Action Figures",
-            image: imageFilenames[7]
-        }, {
-            id: 9,
-            name: "Math Learning Game",
-            price: 349,
-            category: "Educational",
-            image: imageFilenames[8]
-        }, {
-            id: 10,
-            name: "Fire Truck Toy",
-            price: 559,
-            category: "Vehicles",
-            image: imageFilenames[9]
-        }, {
-            id: 11,
-            name: "Monopoly Board Game",
-            price: 999,
-            category: "Board Games",
-            image: imageFilenames[10]
-        }, {
-            id: 12,
-            name: "LEGO Friends Set",
-            price: 1899,
-            category: "Building Blocks",
-            image: imageFilenames[11]
-        }, {
-            id: 13,
-            name: "Spider-Man Figure",
-            price: 399,
-            category: "Action Figures",
-            image: imageFilenames[12]
-        }, {
-            id: 14,
-            name: "Baby Doll with Accessories",
-            price: 649,
-            category: "Dolls",
-            image: imageFilenames[13]
-        }, {
-            id: 15,
-            name: "Science Experiment Kit",
-            price: 1199,
-            category: "Educational",
-            image: imageFilenames[14]
-        }, {
-            id: 16,
-            name: "Police Car Toy",
-            price: 449,
-            category: "Vehicles",
-            image: imageFilenames[15]
-        }, {
-            id: 17,
-            name: "Scrabble Word Game",
-            price: 799,
-            category: "Board Games",
-            image: imageFilenames[16]
-        }, {
-            id: 18,
-            name: "LEGO Technic Set",
-            price: 3499,
-            category: "Building Blocks",
-            image: imageFilenames[17]
-        }, {
-            id: 19,
-            name: "Batman Action Figure",
-            price: 459,
-            category: "Action Figures",
-            image: imageFilenames[18]
-        }, {
-            id: 20,
-            name: "Fashion Designer Doll",
-            price: 899,
-            category: "Dolls",
-            image: imageFilenames[19]
-        }];
+// Your Google Sheet public URL (published as CSV)
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTbY8rjppOl7GauG7-9mE0dA0oLuif0gIgbzWD16u1nNTPLIHhfFPqGBR8tDancBW8BnHyJcqb83Rrv/pub?gid=0&single=true&output=csv';
 
-        for (let i = 21; i <= 300; i++) {
-            const categories = ["Action Figures", "Dolls", "Educational", "Building Blocks", "Vehicles", "Board Games"];
-            const names = ["Super Hero", "Princess", "Learning", "Building", "Racing", "Strategy", "Adventure", "Creative", "Musical", "Puzzle", "Classic", "Modern"];
-            const types = ["Figure", "Doll", "Game", "Set", "Toy", "Kit", "Collection", "Playset"];
+async function loadToysFromSheet() {
+    try {
+        const response = await fetch(SHEET_URL);
+        const csvText = await response.text();
+        
+        Papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            complete: function(results) {
+                toys = results.data.map((row, index) => {
+                    if (index === 0) {  // Log headers from first data row (or adjust)
+                        console.log('Available column keys:', Object.keys(row));
+                    }
+                    return {
+                        id: parseInt(row.id) || index + 1,
+                        name: row.name || 'Unnamed Product',
+                        price: parseInt(row.price) || 0,
+                        category: row.category || 'Other',
+                        image: row['image link'] || '',
+                        description: row['Product specifications '] || 'Quality product for hours of fun.',
+                        specs: {
+                            Color: 'Multi-color',
+                            Size: 'Standard',
+                            description: row['Product specifications '] || 'Quality product'
+                        }
+                    };
+                }).filter(toy => toy.id && toy.name !== 'Unnamed Product');
 
-            const category = categories[Math.floor(Math.random() * categories.length)];
-            const name = names[Math.floor(Math.random() * names.length)];
-            const type = types[Math.floor(Math.random() * types.length)];
-            const price = Math.floor(Math.random() * 3000) + 199;
-            const imageIndex = (i - 1) % imageFilenames.length;
+                // Compute category frequencies
+                const categoryCounts = {};
+                toys.forEach(toy => {
+                    const cat = toy.category;
+                    categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+                });
 
-            toys.push({
-                id: i,
-                name: `${name} ${type} #${i}`,
-                price: price,
-                category: category,
-                image: imageFilenames[imageIndex]
-            });
-        }
+                // Filter categories appearing >5 times, sort by frequency desc
+                const frequentCategories = Object.entries(categoryCounts)
+                    .filter(([_, count]) => count > 5)
+                    .sort(([, a], [, b]) => b - a)
+                    .map(([cat]) => cat);
 
+                console.log('Frequent categories:', frequentCategories); // Debug log
+
+                // Render dynamic tabs
+                const tabsContainer = document.getElementById('category-tabs');
+                tabsContainer.innerHTML = '<button class="category-tab active" data-category="all">All</button>';
+                frequentCategories.forEach(cat => {
+                    tabsContainer.innerHTML += `<button class="category-tab" data-category="${cat}">${cat}</button>`;
+                });
+
+                console.log('Loaded toys:', toys); // Debug log
+                window.toyStore = new ToyStore();
+            },
+            error: function(error) {
+                console.error('Error parsing CSV:', error);
+                alert('Failed to load products. Please check console.');
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching sheet:', error);
+        alert('Failed to load products: ' + error.message);
+    }
+}
         class ToyStore {
             constructor() {
                 this.toys = toys;
                 this.collection = [];
                 this.filteredToys = [...this.toys];
-                this.init();
+                if (this.toys.length > 0) {
+                    this.init();
+                }
             }
 
             init() {
@@ -1020,32 +881,11 @@
             renderProducts(toysToRender = this.filteredToys) {
                 const grid = document.getElementById('products-grid');
                 grid.innerHTML = toysToRender.map((toy, index) => {
-                    const allFeatures = [
-                        'Safe & Non-toxic materials',
-                        'Age appropriate design',
-                        'Durable construction',
-                        'Educational value',
-                        'Easy to clean',
-                        'Recommended by parents',
-                        'Premium quality',
-                        'Warranty included',
-                        'Fast delivery',
-                        'Best seller'
-                    ];
-                    const features = allFeatures.sort(() => 0.5 - Math.random()).slice(0, 3);
-
                     return `
                         <div class="product-card" style="animation-delay: ${index * 0.05}s" onclick="toyStore.showProductDetail(${toy.id})">
-                            <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-image">
-                            <div class="product-category">${toy.category}</div>
+                            <img src="${toy.image}" alt="${toy.name}" class="product-image">
                             <h3 class="product-name">${toy.name}</h3>
                             <p class="product-price">₹${toy.price.toLocaleString()}</p>
-                            <ul class="product-features">
-                                ${features.map(feature => `<li>${feature}</li>`).join('')}
-                            </ul>
-                            <button class="btn" onclick="event.stopPropagation(); toyStore.addToCollection(${toy.id})">
-                                Add to Cart
-                            </button>
                         </div>
                     `;
                 }).join('');
@@ -1163,79 +1003,32 @@
                 const modal = document.getElementById('product-detail-modal');
                 const content = document.getElementById('product-detail-content');
                 
-                const hasDetailedInfo = toy.description && toy.specs;
-                
-                if (!hasDetailedInfo) {
-                    content.innerHTML = `
-                        <div class="product-detail-header">
-                            <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-detail-image">
-                            <div class="product-detail-info">
-                                <h1 class="product-detail-title">${toy.name}</h1>
-                                <div class="product-detail-price">₹${toy.price.toLocaleString()}</div>
-                                <div class="product-detail-category">${toy.category}</div>
-                                <div class="product-description">
-                                    This is a quality ${toy.category.toLowerCase()} product perfect for hours of entertainment and fun. 
-                                    Contact us for more detailed specifications and availability.
-                                </div>
-                            </div>
+                const fallbackDesc = `This is a quality ${toy.category.toLowerCase()} product perfect for hours of entertainment and fun. Contact us for more detailed specifications and availability.`;
+                content.innerHTML = `
+                    <div class="product-detail-header">
+                        <img src="${toy.image}" alt="${toy.name}" class="product-detail-image">
+                        <div class="product-detail-info">
+                            <h1 class="product-detail-title">${toy.name}</h1>
+                            <div class="product-detail-price">₹${toy.price.toLocaleString()}</div>
+                            <div class="product-detail-category">${toy.category}</div>
                         </div>
-                        <div class="product-actions">
-                            <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">
-                                Add to Cart
-                            </button>
-                            <button class="btn whatsapp-btn" onclick="toyStore.sendSingleProductToWhatsApp(${toy.id});">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
-                                </svg>
-                                Buy on WhatsApp
-                            </button>
-                        </div>
-                    `;
-                } else {
-                    content.innerHTML = `
-                        <div class="product-detail-header">
-                            <img src="images/${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-detail-image">
-                            <div class="product-detail-info">
-                                <h1 class="product-detail-title">${toy.name}</h1>
-                                <div class="product-detail-price">₹${toy.price.toLocaleString()}</div>
-                                <div class="product-detail-category">${toy.category}</div>
-                            </div>
-                        </div>
-                        
-                        <div class="product-description">
-                            ${toy.description}
-                        </div>
-                        
-                        <div class="product-specs">
-                            <h3>📋 Product Specifications</h3>
-                            <div class="spec-item">
-                                <span class="spec-label">Color:</span>
-                                <span class="spec-value">${toy.specs.Color || toy.specs['Age Range'] || 'Multi-color'}</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Size:</span>
-                                <span class="spec-value">${toy.specs.Size || toy.specs.Height || toy.specs.Dimensions || 'Standard'}</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Description:</span>
-                                <span class="spec-value">${toy.description}</span>
-                            </div>
-                        </div>
-                        
-                        <div class="product-actions">
-                            <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">
-                                Add to Cart
-                            </button>
-                            <button class="btn whatsapp-btn" onclick="toyStore.sendSingleProductToWhatsApp(${toy.id});">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
-                                </svg>
-                                Buy on WhatsApp
-                            </button>
-                        </div>
-                    `;
-                }
-                
+                    </div>
+                    <h3 style="color: #1a1a1a; margin-bottom: 1rem; font-size: 18px; font-weight: 600;">Product Specifications</h3>
+                    <div class="product-description">
+                        ${toy.description || fallbackDesc}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn" onclick="toyStore.addToCollection(${toy.id}); toyStore.hideProductDetail();">
+                            Add to Cart
+                        </button>
+                        <button class="btn whatsapp-btn" onclick="toyStore.sendSingleProductToWhatsApp(${toy.id});">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/>
+                            </svg>
+                            Buy on WhatsApp
+                        </button>
+                    </div>
+                `;
                 modal.style.display = 'block';
             }
 
@@ -1294,7 +1087,7 @@
             }
         }
 
-        const toyStore = new ToyStore();
+        loadToysFromSheet();
     </script>
 </body>
 </html>

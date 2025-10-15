@@ -868,7 +868,7 @@ async function loadToysFromSheet() {
                 grid.innerHTML = toysToRender.map((toy, index) => {
                     return `
                         <div class="product-card" style="animation-delay: ${index * 0.05}s" onclick="toyStore.showProductDetail(${toy.id})">
-                            <img src="https://api.allorigins.win/raw?url=${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-image">
+                            <img src="${toy.image}" alt="${toy.name}" class="product-image">
                             <h3 class="product-name">${toy.name}</h3>
                             <p class="product-price">₹${toy.price.toLocaleString()}</p>
                         </div>
@@ -1023,7 +1023,7 @@ async function loadToysFromSheet() {
                 
                 content.innerHTML = `
                     <div class="product-detail-header">
-                        <img src="https://api.allorigins.win/raw?url=${encodeURIComponent(toy.image)}" alt="${toy.name}" class="product-detail-image">
+                        <img src="${toy.image}" alt="${toy.name}" class="product-detail-image">
                         <div class="product-detail-info">
                             <h1 class="product-detail-title">${toy.name}</h1>
                             <div class="product-detail-price">₹${toy.price.toLocaleString()}</div>
